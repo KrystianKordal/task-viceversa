@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ book.title }} - {{ book.author }}{% endblock %}
+
+{% block body %}
+    <div class="row mt-5">
+        <div class="col-3">
+            <img
+                {% if book.cover %}
+                    src="/uploads/covers/{{ book.cover }}"
+                {% else %}
+                    src="/static/no-photo.jpg"
+                {% endif %}
+                    class="ratio-1x1 w-75"
+            >
+        </div>
+        <div class="col-9">
+            <h2>{{ book.title }} ({{ book.publicationYear }})</h2>
+            <p>{{ book.author }}</p>
+            <p>{{ book.description }}</p>
+            <p>ISBN: {{ book.isbn }}</p>
+            <a class="btn btn-primary mb-3" href="{{ path('book_edit', {'id': book.id}) }}">Edytuj książkę</a>
+            <form action="{{ path('book_delete', {'id': book.id}) }}" method="POST">
+                <button type="submit" class="btn btn-danger">Usuń książkę</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: viceversa-books
+      MYSQL_USER: viceversa
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+  web:
+    image: php:8.3-apache
+    container_name: php_web
+    build:
+      context: .
+      dockerfile: build/web.Dockerfile
+    depends_on:
+      - db
+    volumes:
+      - ./:/var/www/task-viceversa
+      - ./build/vhosts:/etc/apache2/sites-enabled
+    ports:
+      - "80:80"

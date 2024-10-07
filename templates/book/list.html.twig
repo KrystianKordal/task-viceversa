@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Books Page {{ page }}{% endblock %}
+
+{% block body %}
+    <h2 class="mb-5">Książki</h2>
+    <div>
+        {% for book in books %}
+            <div class="my-2">
+                <a href="{{ path('book_show', {'id': book.id}) }}" class="text-reset text-decoration-none">
+                    <div>
+                        <h4>{{ book.title }}</h4>
+                        <div>{{ book.author }}</div>
+                    </div>
+                </a>
+            </div>
+            <hr>
+        {% endfor %}
+    </div>
+    <div class="d-flex">
+        {% if page > 1 %}
+            <a class="btn btn-primary" href="{{ prevPage }}">Poprzednia strona</a>
+        {% endif %}
+        <a class="btn btn-primary" href="{{ nextPage }}">Następna strona</a>
+    </div>
+{% endblock %}
